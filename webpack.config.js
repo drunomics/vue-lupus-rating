@@ -9,7 +9,7 @@ module.exports = {
   output: {
     path: path.resolve(__dirname, 'dist'),
     filename: '[name].js',
-    library: 'vue-lupus-slider',
+    library: 'vue-lupus-rating',
     libraryTarget: 'umd',
     umdNamedDefine: true,
   },
