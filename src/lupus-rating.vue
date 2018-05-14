@@ -1,5 +1,5 @@
 <template>
-  <div class="lupus-rating" v-on:mouseleave="hover(false)">
+  <div class="lupus-rating" v-on:mouseleave="hover(false)" :class="{'readonly': readonly}">
     <lupus-rating-star v-on:click.native="vote(1)" v-on:mouseenter.native="hover(1)" :class="style1"/>
     <lupus-rating-star v-on:click.native="vote(2)" v-on:mouseenter.native="hover(2)" :class="style2"/>
     <lupus-rating-star v-on:click.native="vote(3)" v-on:mouseenter.native="hover(3)" :class="style3"/>
@@ -106,7 +106,7 @@
         this.preventvote = true;
         this.voted = vote;
         if (this.voteurl) {
-          axios.post(voteurl, {vote})
+          axios.post(this.voteurl, {vote})
         }
       },
       hover(index) {

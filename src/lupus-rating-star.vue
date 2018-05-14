@@ -81,4 +81,10 @@
       }
     }
   }
+
+  .readonly {
+    .lupus-rating-star {
+      cursor: initial;
+    }
+  }
 </style>
