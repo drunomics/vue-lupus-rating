@@ -5,24 +5,17 @@
     <lupus-rating-star v-on:click.native="vote(3)" v-on:mouseenter.native="hover(3)" :class="style3"/>
     <lupus-rating-star v-on:click.native="vote(4)" v-on:mouseenter.native="hover(4)" :class="style4"/>
     <lupus-rating-star v-on:click.native="vote(5)" v-on:mouseenter.native="hover(5)" :class="style5"/>
-    <span>currentrating: {{ currentrating }} | </span>
-    <span>rating: {{ rating }} | </span>
-    <span>internal_votecount: {{ internal_votecount }} | </span>
-    <span>voted: {{ voted }} | </span>
-    <span>alreadyvoted: {{ alreadyvoted }} | </span>
-    {{ rating }}
-    {{ voted }}
-    {{ votecount }}
-    {{ alreadyvoted }}
+    <div class="">({{ internal_votecount }})</div>
   </div>
 </template>
 
 <script>
+  import axios from 'axios';
   import LupusRatingStar from './lupus-rating-star.vue';
 
   export default {
     name: 'lupus-rating',
-    props: ['currentrating', 'votecount', 'voteurl', 'alreadyvoted'],
+    props: ['currentrating', 'votecount', 'voteurl', 'alreadyvoted', 'readonly'],
     data() {
       return  {
         voted: false,
@@ -101,7 +94,7 @@
     },
     methods: {
       vote(vote) {
-        if (this.preventvote) {
+        if (this.preventvote || this.readonly) {
           return false;
         }
         if (this.votecount) {
@@ -112,8 +105,14 @@
         }
         this.preventvote = true;
         this.voted = vote;
+        if (this.voteurl) {
+          axios.post(voteurl, {vote})
+        }
       },
       hover(index) {
+        if (this.readonly) {
+          return false;
+        }
         this.hovered = index;
       }
     }
