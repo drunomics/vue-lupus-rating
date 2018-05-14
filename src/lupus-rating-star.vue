@@ -67,11 +67,17 @@
         fill: yellow;
         stroke: yellow;
       }
+      #starfill2 {
+        display: none;
+      }
     }
     &.hovered {
       #starfill {
         fill: yellow;
         stroke: yellow;
+      }
+      #starfill2 {
+        display: none;
       }
     }
   }

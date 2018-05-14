@@ -5,7 +5,7 @@
     <lupus-rating-star v-on:click.native="vote(3)" v-on:mouseenter.native="hover(3)" :class="style3"/>
     <lupus-rating-star v-on:click.native="vote(4)" v-on:mouseenter.native="hover(4)" :class="style4"/>
     <lupus-rating-star v-on:click.native="vote(5)" v-on:mouseenter.native="hover(5)" :class="style5"/>
-    <div class="">({{ internal_votecount }})</div>
+    <div class="lupus-rating__count">({{ internal_votecount }})</div>
   </div>
 </template>
 
@@ -21,7 +21,7 @@
         voted: false,
         preventvote: false,
         hovered: false,
-        internal_votecount: false,
+        internal_votecount: 0,
       }
     },
     mounted() {
