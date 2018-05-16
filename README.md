@@ -1,8 +1,6 @@
 # vue-lupus-rating
 Vue rating component.
 
-
-
 ## Install
 
 via npm:
@@ -14,10 +12,13 @@ The following props are available to conigure this component:
 
 * 'currentrating' -> the current average rating that is calulated by the backend. (e.g 4.7)
 * 'votecount' -> the current total votes that were counted.
-* 'voteurl' -> supply a api endpoint where votes can be logged.
+* 'useemit' -> if set to true the vote will be emitted via the `$emit` function, else it defaults to firing a custom event `lupus-rating.vote` on the document with the vote as eventdata.
 * 'alreadyvoted' -> if the user already voted and further voting is disabled supply the actual vote the user made.
 * 'readonly' -> Readonly mode without interaction, just display.
 
-The request to the voteurl will send a POST request with the very simple json payload:
+The Vote will be emitted via the `$emit` function if set or else it defaults to firing a custom event `lupus-rating.vote` on the document with the vote as eventdata.
 
-`{ vote: 4 }` (e.g.)
+Example data for the event:
+```
+{ vote: 4 }
+```

@@ -10,12 +10,9 @@
 </template>
 
 <script>
-  import axios from 'axios';
-  import LupusRatingStar from './lupus-rating-star.vue';
-
   export default {
     name: 'lupus-rating',
-    props: ['currentrating', 'votecount', 'voteurl', 'alreadyvoted', 'readonly'],
+    props: ['currentrating', 'votecount', 'alreadyvoted', 'readonly', 'useemit'],
     data() {
       return  {
         voted: false,
@@ -105,8 +102,12 @@
         }
         this.preventvote = true;
         this.voted = vote;
-        if (this.voteurl) {
-          axios.post(this.voteurl, {vote})
+        if (this.useemit) {
+          this.$emit('vote', {vote})
+        }
+        else {
+          const event = new CustomEvent("lupus-rating.vote", {vote});
+          document.dispatchEvent(event);
         }
       },
       hover(index) {
