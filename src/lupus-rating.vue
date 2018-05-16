@@ -14,7 +14,21 @@
 
   export default {
     name: 'lupus-rating',
-    props: ['currentrating', 'votecount', 'alreadyvoted', 'readonly', 'useemit'],
+    props: {
+      'currentrating': null,
+      'votecount': null,
+      'alreadyvoted': null,
+      'readonly': null,
+      'useemit': null,
+      'entityid': {
+        type: String,
+        required: true
+      },
+      'entitytype': {
+        type: String,
+        default: 'node'
+      },
+    },
     data() {
       return  {
         voted: false,
@@ -104,19 +118,24 @@
         }
         this.preventvote = true;
         this.voted = vote;
+        const votedata = {
+          vote: vote,
+          entityid: this.entityid,
+          entitytype: this.entitytype,
+        }
         if (this.useemit) {
-          this.$emit('vote', {vote})
+          this.$emit('vote', votedata)
         }
         else {
           let event = false;
           try {
             // For modern browsers except IE
-            event = new CustomEvent('lupus-rating.vote', {detail: {vote}});
+            event = new CustomEvent('lupus-rating.vote', {detail: votedata});
           } catch(err) {
             // If IE 11 and older
             event = document.createEvent('Event');
             event.initEvent('lupus-rating.vote', true, true);
-            event.detail = {vote};
+            event.detail = votedata;
           }
           if (event) {
             document.dispatchEvent(event);
