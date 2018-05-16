@@ -10,6 +10,8 @@
 </template>
 
 <script>
+  import LupusRatingStar from './lupus-rating-star.vue';
+
   export default {
     name: 'lupus-rating',
     props: ['currentrating', 'votecount', 'alreadyvoted', 'readonly', 'useemit'],
