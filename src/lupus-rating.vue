@@ -108,7 +108,15 @@
           this.$emit('vote', {vote})
         }
         else {
-          const event = new CustomEvent("lupus-rating.vote", {vote});
+          try {
+            // For modern browsers except IE
+            const event = new CustomEvent('lupus-rating.vote', {vote});
+          } catch(err) {
+            // If IE 11 and older
+            const event = document.createEvent('Event');
+            event.initEvent('lupus-rating.vote', true, true);
+            event.vote = vote;
+          }
           document.dispatchEvent(event);
         }
       },
