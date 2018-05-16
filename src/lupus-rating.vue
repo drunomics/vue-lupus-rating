@@ -108,16 +108,19 @@
           this.$emit('vote', {vote})
         }
         else {
+          let event = false;
           try {
             // For modern browsers except IE
-            const event = new CustomEvent('lupus-rating.vote', {vote});
+            event = new CustomEvent('lupus-rating.vote', {detail: {vote}});
           } catch(err) {
             // If IE 11 and older
-            const event = document.createEvent('Event');
+            event = document.createEvent('Event');
             event.initEvent('lupus-rating.vote', true, true);
-            event.vote = vote;
+            event.detail = {vote};
           }
-          document.dispatchEvent(event);
+          if (event) {
+            document.dispatchEvent(event);
+          }
         }
       },
       hover(index) {
