@@ -108,7 +108,7 @@
         if (this.readonly) {
           return false;
         }
-        if (!this.alreadyvoted) {
+        if (!this.alreadyvoted && !this.voted) {
           if (this.votecount) {
             this.internal_votecount = parseInt(this.internal_votecount) + 1;
           }
