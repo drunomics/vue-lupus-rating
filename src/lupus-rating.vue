@@ -32,7 +32,6 @@
     data() {
       return  {
         voted: false,
-        preventvote: false,
         hovered: false,
         internal_votecount: 0,
       }
@@ -40,7 +39,6 @@
     mounted() {
       if (this.alreadyvoted) {
         this.voted = this.alreadyvoted;
-        this.preventvote = true;
       }
       if (this.votecount) {
         this.internal_votecount = this.votecount;
@@ -66,7 +64,7 @@
       },
       style1() {
         return {
-          'hovered': this.hovered >= 1  && !this.voted,
+          'hovered': this.hovered >= 1,
           'highlighted': this.voted >= 1,
           'voted': this.rating >= 1 && !this.voted,
           'voted-half': this.rating === 0.5  && !this.voted,
@@ -74,7 +72,7 @@
       },
       style2() {
         return {
-          'hovered': this.hovered >= 2  && !this.voted,
+          'hovered': this.hovered >= 2,
           'highlighted': this.voted >= 2,
           'voted': this.rating >= 2  && !this.voted,
           'voted-half': this.rating === 1.5  && !this.voted,
@@ -82,7 +80,7 @@
       },
       style3() {
         return {
-          'hovered': this.hovered >= 3  && !this.voted,
+          'hovered': this.hovered >= 3,
           'highlighted': this.voted >= 3,
           'voted': this.rating >= 3  && !this.voted,
           'voted-half': this.rating === 2.5  && !this.voted,
@@ -90,7 +88,7 @@
       },
       style4() {
         return {
-          'hovered': this.hovered >= 4  && !this.voted,
+          'hovered': this.hovered >= 4,
           'highlighted': this.voted >= 4,
           'voted': this.rating >= 4  && !this.voted,
           'voted-half': this.rating === 3.5  && !this.voted,
@@ -98,7 +96,7 @@
       },
       style5() {
         return {
-          'hovered': this.hovered >= 5  && !this.voted,
+          'hovered': this.hovered >= 5,
           'highlighted': this.voted >= 5,
           'voted': this.rating >= 5  && !this.voted,
           'voted-half': this.rating === 4.5  && !this.voted,
@@ -107,16 +105,17 @@
     },
     methods: {
       vote(vote) {
-        if (this.preventvote || this.readonly) {
+        if (this.readonly) {
           return false;
         }
-        if (this.votecount) {
-          this.internal_votecount = parseInt(this.internal_votecount) + 1;
+        if (!this.alreadyvoted) {
+          if (this.votecount) {
+            this.internal_votecount = parseInt(this.internal_votecount) + 1;
+          }
+          else {
+            this.internal_votecount = 1
+          }
         }
-        else {
-          this.internal_votecount = 1
-        }
-        this.preventvote = true;
         this.voted = vote;
         const votedata = {
           vote: vote,
