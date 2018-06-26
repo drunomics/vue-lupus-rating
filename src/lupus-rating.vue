@@ -19,14 +19,17 @@
       'votecount': null,
       'alreadyvoted': null,
       'readonly': null,
-      'useemit': null,
       'entityid': {
         type: String,
         required: true
       },
       'entitytype': {
         type: String,
-        default: 'node'
+        required: true
+      },
+      'entitybundle': {
+        type: String,
+        required: true,
       },
     },
     data() {
@@ -121,25 +124,9 @@
           vote: vote,
           entityid: this.entityid,
           entitytype: this.entitytype,
+          entitybundle: this.entitybundle,
         }
-        if (this.useemit) {
-          this.$emit('vote', votedata)
-        }
-        else {
-          let event = false;
-          try {
-            // For modern browsers except IE
-            event = new CustomEvent('lupus-rating.vote', {detail: votedata});
-          } catch(err) {
-            // If IE 11 and older
-            event = document.createEvent('Event');
-            event.initEvent('lupus-rating.vote', true, true);
-            event.detail = votedata;
-          }
-          if (event) {
-            document.dispatchEvent(event);
-          }
-        }
+        this.$emit('vote', votedata)
       },
       hover(index) {
         if (this.readonly) {
