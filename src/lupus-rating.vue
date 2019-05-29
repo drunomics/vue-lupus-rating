@@ -56,7 +56,7 @@
         const decimal_part = this.currentrating - integer_part;
         let rating = integer_part;
 
-        if (decimal_part >= 0.3 && decimal_part <= 0.7) {
+        if (decimal_part >= 0.3 && decimal_part < 0.8) {
           rating = rating + 0.5;
         }
         if (decimal_part >= 0.8) {
