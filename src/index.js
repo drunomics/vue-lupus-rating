@@ -1,4 +1,3 @@
-import LupusRating from './lupus-rating.vue';
+import LupusRating from './lupus-rating.vue'
 
-export default LupusRating;
-
+export default LupusRating
